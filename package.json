@@ -1,0 +1,23 @@
+{
+  "name": "discordbattlebots",
+  "version": "1.0.0",
+  "description": "Battle Bots in Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarrinneal/discordbattlebots.git"
+  },
+  "keywords": [
+    "discord",
+    "battlebots"
+  ],
+  "author": "Tarrin Neal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarrinneal/discordbattlebots/issues"
+  },
+  "homepage": "https://github.com/tarrinneal/discordbattlebots#readme"
+}
