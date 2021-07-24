@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/tarrinneal/discordbattlebots/issues"
   },
-  "homepage": "https://github.com/tarrinneal/discordbattlebots#readme"
+  "homepage": "https://github.com/tarrinneal/discordbattlebots#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
 }
