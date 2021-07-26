@@ -23,7 +23,8 @@ Example stats object
     {
       "name": string,
       "dmg": int,
-      "cooldown": int
+      "cooldown": int,
+      "range": int
     }
   ],
   //more to come as the bot gets more intelligent
