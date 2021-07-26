@@ -18,6 +18,7 @@ Example stats object
   "atk": int,
   "def": int,
   "spd": int,
+  "hp": int,
   "atkList": [
     {
       "name": string,
