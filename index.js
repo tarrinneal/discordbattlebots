@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { init, addPlayer, initPlayers } = require('./methods');
 const client = new Discord.Client();
 require('dotenv').config();
 
@@ -14,50 +15,48 @@ client.on('message', (msg) => {
         'Check out the readme for instructions on how to play at https://github.com/tarrinneal/discordbattlebots'
       );
       sent = true;
-    }
-    if (msg.content === '!bb init') {
-      gameState.init = true;
-      msg.reply('Initializing game, tag your champions!');
+    } else if (msg.content === '!bb gameState') {
+      msg.channel.send(JSON.stringify(gameState));
       sent = true;
+    } else if (msg.content === '!bb reset') {
+      gameState = Object.assign(initialGameState, gameState);
+      msg.reply('Game state reset!');
     }
-    if (msg.content.includes('!bb <@') && gameState.init) {
-      if (gameState.player1 === '') {
-        gameState.player1 = msg.content.split('!bb ')[1];
-        msg.reply(`${gameState.player1} !init`);
-        sent = true;
-      } else if (gameState.player2 === '') {
-        gameState.player2 = msg.content.split('!bb ')[1];
-        msg.reply(`${gameState.player2} !init`);
-        sent = true;
+
+    if (gameState.start) {
+      //game messages that alters the game state
+    } else {
+      if (msg.content === '!bb init') {
+        sent = init(msg, gameState);
+      } else if (msg.content.includes('!bb <@') && gameState.init) {
+        sent = addPlayer(msg, gameState);
+      } else if (
+        gameState.player1.includes(msg.author.id) &&
+        msg.content.includes('!bb {')
+      ) {
+        sent = initPlayers(msg, gameState, 'player1');
+      } else if (
+        gameState.player2.includes(msg.author.id) &&
+        msg.content.includes('!bb {')
+      ) {
+        sent = initPlayers(msg, gameState, 'player2');
       }
     }
-    if (
-      gameState.player1.includes(msg.author.id) &&
-      msg.content.includes('!bb {')
-    ) {
-      gameState.player1Stats = JSON.parse(msg.content.split('!bb ')[1]);
-      msg.reply(JSON.stringify(gameState.player1Stats));
-      sent = true;
-    } else if (
-      gameState.player2.includes(msg.author.id) &&
-      msg.content.includes('!bb {')
-    ) {
-      gameState.player2Stats = JSON.parse(msg.content.split('!bb ')[1]);
-      msg.reply(JSON.stringify(gameState.player1Stats));
-      sent = true;
-    }
-    if (!sent) {
-      msg.reply('Invalid command!');
-    }
+  }
+  if (!sent) {
+    msg.reply('Invalid command!');
   }
 });
 
 client.login(process.env.distok);
 
-const gameState = {
+const initialGameState = {
   init: false,
+  start: false,
   player1: '',
   player2: '',
   player1Stats: undefined,
   player2Stats: undefined,
 };
+
+const gameState = Object.assign(initialGameState);
