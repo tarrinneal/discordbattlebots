@@ -24,7 +24,8 @@ Example stats object
       "name": string,
       "dmg": int,
       "cooldown": int,
-      "range": int
+      "range": int,
+      "accuracy": int
     }
   ],
   //more to come as the bot gets more intelligent

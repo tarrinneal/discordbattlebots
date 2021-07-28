@@ -1,5 +1,13 @@
 const Discord = require('discord.js');
-const { init, addPlayer, initPlayers } = require('./methods');
+const {
+  gameState,
+  initialGameState,
+  init,
+  addPlayer,
+  initPlayers,
+  handleAttack,
+  resetGame,
+} = require('./methods');
 const client = new Discord.Client();
 require('dotenv').config();
 
@@ -19,44 +27,39 @@ client.on('message', (msg) => {
       msg.channel.send(JSON.stringify(gameState));
       sent = true;
     } else if (msg.content === '!bb reset') {
-      gameState = Object.assign(initialGameState, gameState);
-      msg.reply('Game state reset!');
+      sent = resetGame(msg);
     }
 
     if (gameState.start) {
-      //game messages that alters the game state
+      if (
+        msg.content.startsWith('!bb atk') &&
+        gameState[`player${gameState.turn}`].includes(msg.author.id)
+      ) {
+        sent = handleAttack(msg);
+      }
     } else {
       if (msg.content === '!bb init') {
-        sent = init(msg, gameState);
+        sent = init(msg);
       } else if (msg.content.includes('!bb <@') && gameState.init) {
-        sent = addPlayer(msg, gameState);
+        sent = addPlayer(msg);
       } else if (
         gameState.player1.includes(msg.author.id) &&
         msg.content.includes('!bb {')
       ) {
-        sent = initPlayers(msg, gameState, 'player1');
+        sent = initPlayers(msg, 'player1');
       } else if (
         gameState.player2.includes(msg.author.id) &&
         msg.content.includes('!bb {')
       ) {
-        sent = initPlayers(msg, gameState, 'player2');
+        sent = initPlayers(msg, 'player2');
       }
     }
-  }
-  if (!sent) {
-    msg.reply('Invalid command!');
+    if (!sent) {
+      msg.channel.send('Invalid command!');
+    }
   }
 });
 
 client.login(process.env.distok);
 
-const initialGameState = {
-  init: false,
-  start: false,
-  player1: '',
-  player2: '',
-  player1Stats: undefined,
-  player2Stats: undefined,
-};
-
-const gameState = Object.assign(initialGameState);
+module.exports = { initialGameState, gameState };
