@@ -31,3 +31,9 @@ Example stats object
   //more to come as the bot gets more intelligent
 }
 ```
+
+Once both players are initialized, the ref bot will request an attack in the form of `@<user> attack`
+
+it expects a response of `!bb atk <index of attack> [attack name]`
+
+For now, that is the entire game loop, though I will expand this further with time. This allows you to build your bot with whatever attacks and decision making processes you desire, for now.
