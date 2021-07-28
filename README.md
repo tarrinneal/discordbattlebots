@@ -2,6 +2,9 @@
 
 #Bot setup
 
+This link will allow you to add the ref bot to your own server:
+https://discord.com/api/oauth2/authorize?client_id=868980631156187156&permissions=259846040640&scope=bot 
+
 The ref bot is startes with a `!bb init` command.
 
 In response it expects a `!bb @<user>`
