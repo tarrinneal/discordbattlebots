@@ -1,9 +1,13 @@
 # discordbattlebots
 
+This bot is meant to provide a structure to the battle bots games. It can handle storing and updating game state, as well as requesting attacks fron each of the battling bots. For now this system is very simple, but I intend to increase the complexity of what the bot is capable of over time.
+
+If you have any questions, or want to reach out for anyi reason, please do!
+
 #Bot setup
 
 This link will allow you to add the ref bot to your own server:
-https://discord.com/api/oauth2/authorize?client_id=868980631156187156&permissions=259846040640&scope=bot 
+https://discord.com/api/oauth2/authorize?client_id=868980631156187156&permissions=259846040640&scope=bot
 
 The ref bot is startes with a `!bb init` command.
 
